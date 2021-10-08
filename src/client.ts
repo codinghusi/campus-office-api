@@ -6,6 +6,7 @@ import FormData from 'form-data';
 import getSemesterList from './scraper/semester-list';
 import getDegreeCourseTypeList from './scraper/degree-course-type-list';
 import getEventList from './scraper/event-list';
+import getEventDetails from './scraper/event-details';
 
 export default class Client {
     private constructor(private axios: Axios) { }
@@ -81,5 +82,9 @@ export default class Client {
 
     async getEventList(field: string, group: string, gguid: string) {
         return getEventList(this.axios, field, group, gguid);
+    }
+
+    async getEventDetails(field: string, group: string, gguid: string) {
+        return getEventDetails(this.axios, field, group, gguid);
     }
 }

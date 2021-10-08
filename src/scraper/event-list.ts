@@ -1,7 +1,8 @@
 import scrapeIt from 'scrape-it';
 import cheerio from 'cheerio';
 import { Axios } from 'axios';
-import parseParams from './parse-params';
+import {parseParams} from './parse-params';
+import { rawToEventVariant } from './event-variant';
 
 interface Event {
     lvCode: string;
@@ -18,13 +19,6 @@ interface Type {
     lecturer: string;
     events: Event[];
 }
-
-const LABEL_MAP = Object.entries({
-    "V": "lecture",
-    "Ü": "excercise",
-    "PT": "practise",
-    "VÜ": "lecture/excercise"
-});
 
 export default async function getEventList(client: Axios, field: string, group: string, gguid: string) {
     const { data: content } = await client.get(`/views/campus/eventlist.asp?body=False&mode=field&department=&field=${field}&group=${group}&gguid=${gguid}`);
@@ -72,7 +66,7 @@ export default async function getEventList(client: Axios, field: string, group: 
                 variant: {
                     selector: "tr > td:nth-child(4)",
                     convert(label) {
-                        const name = LABEL_MAP.find(([short, _]) => label.includes(short))?.[1] ?? "unknown";
+                        const name = rawToEventVariant(label);
                         const num = parseInt(label.match(/\w+\s*\((\d+)\)/)?.[1] ?? "1");
                         return { name, num }
                     }

@@ -1,7 +1,7 @@
 import scrapeIt from 'scrape-it';
 import cheerio from 'cheerio';
 import { Axios } from 'axios';
-import parseParams from './parse-params';
+import {parseParams} from './parse-params';
 
 export default async function getSemesterList(client: Axios) {
     const { data: content } = await client.get("/views/campus/selectterm.asp");

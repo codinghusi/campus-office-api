@@ -1,7 +1,7 @@
 import scrapeIt from 'scrape-it';
 import cheerio from 'cheerio';
 import { Axios } from 'axios';
-import parseParams from './parse-params';
+import {parseParams} from './parse-params';
 
 export default async function getDegreeCourseTypeList(client: Axios) {
     const { data: content } = await client.get("/views/campus/groups.asp");

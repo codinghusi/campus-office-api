@@ -1,7 +1,7 @@
 import scrapeIt from 'scrape-it';
 import cheerio from 'cheerio';
 import { Axios } from 'axios';
-import parseParams from './parse-params';
+import {parseParams} from './parse-params';
 
 export default async function getCourseSemesterList(client: Axios, field: string, group: string, gguid: string) {
     const { data: content } = await client.get(`/views/campus/eventlist.asp?body=False&department=&field=${field}&group=${group}&gguid=${gguid}`);
